@@ -29,7 +29,7 @@ void inorder(TreeNode *cur)
         return;
     }
     inorder(cur->left);
-    if (pre)
+    if (pre) // this condition was missing
     {
         if (cur->val < pre->val)
         {
@@ -69,6 +69,8 @@ bool hasPathSum(TreeNode *root, int &targetSum)
 
     return leftPath || rightPath;
 
+    // Nothing was missing 
+
     // debugged
 }
 
@@ -78,12 +80,12 @@ TreeNode *sortedArrayToBST(vector<int> &nums)
 {
     if (nums.size() == 0)
         return NULL;
-    if (nums.size() == 1)
+    if (nums.size() == 1) // this condition was missing
         return new TreeNode(nums[0]);
     int middle = nums.size() / 2;
     TreeNode *root = new TreeNode(nums[middle]);
     vector<int> leftsub(nums.begin(), nums.begin() + middle);
-    vector<int> rightsub(nums.begin() + middle + 1, nums.end());
+    vector<int> rightsub(nums.begin() + middle + 1, nums.end()); //middle+1 was missing in this line
     root->left = sortedArrayToBST(leftsub);
     root->right = sortedArrayToBST(rightsub);
     return root;
@@ -101,8 +103,8 @@ TreeNode *solve(vector<int> &node, int s, int e)
     int mid = (s + e)>>1;
     TreeNode *p = new TreeNode(node[mid]);
 
-    p->left = solve(node, s, mid-1);
-    p->right = solve(node, mid+1, e);
+    p->left = solve(node, s, mid-1); //mid -> mid -1 changes
+    p->right = solve(node, mid+1, e); // mid -> mid+1 changes
     return p;
 }
 
